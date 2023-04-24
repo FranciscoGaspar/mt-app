@@ -43,7 +43,7 @@ export default function Chat() {
   };
 
   return (
-    <div class={`w-screen h-screen bg-gray-800`}>
+    <div class={`w-screen h-screen bg-neutral-700`}>
         <div class="flex flex-col items-center gap-4 w-full">
             {messages().map((message) => (
                 <div class="bg-gray-100 p-4 rounded-3xl shadow-md w-10/12">
