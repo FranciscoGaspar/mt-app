@@ -3,7 +3,6 @@ import { render } from 'solid-js/web';
 
 import './index.css';
 import App from './App';
-import { HopeProvider } from '@hope-ui/solid';
 
 const root = document.getElementById('root');
 
@@ -13,4 +12,4 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
-render(() => <HopeProvider> <App /> </HopeProvider>, root!);
+render(() => <App />, root!);
