@@ -1,11 +1,13 @@
 import { createSignal } from "solid-js";
 import { FaRegularHeart, FaRegularComments, FaRegularPaperPlane } from "solid-icons/fa";
+import Avatar from "solid-boring-avatars";
+
 
 export default function Chat() {
   const [messages, setMessages] = createSignal([
     {
       id: 1,
-      author: "XXXXXXXX",
+      author: "John Doe",
       content: "Hello, how are you?",
       likes: 5,
       comments: [],
@@ -13,7 +15,7 @@ export default function Chat() {
     },
     {
       id: 2,
-      author: "YYYYYYYY",
+      author: "Jane Doe",
       content: "Heyyy!",
       likes: 2,
       comments: [],
@@ -47,6 +49,14 @@ export default function Chat() {
         <div class="flex flex-col items-center gap-4 w-full">
             {messages().map((message) => (
                 <div class="bg-gray-100 p-4 rounded-3xl shadow-md w-10/12">
+                    <div class="flex items-center justify-between mb-2">
+                    <Avatar
+                      size={60}
+                      name={message.author}
+                      variant="marble"
+                      colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
+                    />
+                    </div>
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-gray-600 text-sm">{message.author}</span>
                         <span class="text-gray-500 text-xs">{message.time}</span>
