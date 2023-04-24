@@ -1,5 +1,5 @@
 import { createSignal } from "solid-js";
-import { FaRegularHeart, FaRegularComments } from "solid-icons/fa";
+import { FaRegularHeart, FaRegularComments, FaRegularPaperPlane } from "solid-icons/fa";
 
 export default function Chat() {
   const [messages, setMessages] = createSignal([
@@ -64,17 +64,19 @@ export default function Chat() {
             ))}
         </div>
         <form onSubmit={handleSubmit} class="fixed bottom-0 w-full p-4 flex">
-            <input
+        <div class="relative flex-1">
+          <input
             type="text"
             value={newMessage()}
             onInput={(event) => setNewMessage(event.target.value)}
             placeholder="Type a message..."
-            class="w-full p-2 rounded-l-md border-gray-300 border focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-r-md">
-                Send
-            </button>
-        </form>
+            class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button type="submit" class="absolute right-0 top-0 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full h-full border border-gray-300">
+            <FaRegularPaperPlane size={18}/>
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
