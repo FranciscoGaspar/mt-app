@@ -45,13 +45,13 @@ export default function Chat() {
     <div class={`w-screen h-screen bg-gray-800`}>
         <div class="flex flex-col items-center gap-4 w-full">
             {messages().map((message) => (
-                <div key={message.id} class="bg-gray-100 p-4 rounded-lg shadow-md w-10/12">
+                <div key={message.id} class="bg-gray-100 p-4 rounded-3xl shadow-md w-10/12">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-gray-600 text-sm">{message.author}</span>
                         <span class="text-gray-500 text-xs">{message.time}</span>
                     </div>
                     <p class="text-gray-800 text-sm">{message.content}</p>
-                    <div class="flex items-center justify-between mt-2">
+                    <div class="flex flex-row-reverse mt-2 flex-wrap gap-2">
                         <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-1 px-3 rounded" onClick={() => handleLike(message.id)}>
                             Like <span class="ml-2 text-xs">({message.likes})</span>
                         </button>
