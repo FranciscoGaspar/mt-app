@@ -3,12 +3,12 @@ import Chat from './components/Chat';
 
 
 const App: Component = () => {
-  return (
-    <>
-      <Chat/>
-    </>
+	return (
+		<>
+			<Chat/>
+		</>
     
-  );
+	);
 };
 
 export default App;
