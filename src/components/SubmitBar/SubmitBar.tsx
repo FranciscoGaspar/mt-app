@@ -25,7 +25,7 @@ export default function SubmitBar({mutate}: Props) {
 					class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
 				/>
 				<button type="submit" class="absolute right-0 top-0 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full h-full border border-gray-300">
-					<FaRegularPaperPlane size={18}/>
+					<FaRegularPaperPlane size={20}/>
 				</button>
 			</div>
 		</form>

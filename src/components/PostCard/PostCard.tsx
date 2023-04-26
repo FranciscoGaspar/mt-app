@@ -38,10 +38,10 @@ export default function PostCard({post}:Props) {
 				<p class=" text-gray-800">{post.message}</p>
 				<div class="flex flex-row-reverse gap-2">
 					<button class="bg-gray-400 hover:bg-gray-300 text-gray-700 font-semibold rounded-full p-4" onClick={() => handleLike(post._id)}>
-						<FaRegularHeart size={18} />
+						<FaRegularHeart size={20} />
 					</button>
 					<button class="bg-gray-400 hover:bg-gray-300 text-gray-700 font-semibold rounded-full p-4" onClick={() => handleComment(post._id)}>
-						<FaRegularComments size={18}/>
+						<FaRegularComments size={20}/>
 					</button>
 				</div>
 			</div>
