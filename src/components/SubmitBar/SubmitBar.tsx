@@ -11,7 +11,16 @@ export default function SubmitBar({mutate}: Props) {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		mutate((posts: Post[]) => [{ message: 'New Message'}, ...posts]);
+		window.moveTo(0, 0);
+		mutate((posts: Post[]) => [
+			{ 
+				message: newMessage(), 
+				author: { name: 'Me'}, 
+				createdAt: new Date().toISOString()
+			}, 
+			...posts
+		]);
+		setNewMessage('');
 	};
     
 	return (
@@ -24,7 +33,7 @@ export default function SubmitBar({mutate}: Props) {
 					placeholder="Type a message..."
 					class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
 				/>
-				<button type="submit" class="absolute right-0 top-0 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full h-full border border-gray-300">
+				<button type="submit" class="absolute right-0 top-0 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full h-full border border-gray-300 justify-center items-center flex gap-2">
 					<FaRegularPaperPlane size={20}/>
 				</button>
 			</div>

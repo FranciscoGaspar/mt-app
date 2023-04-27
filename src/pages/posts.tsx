@@ -13,7 +13,7 @@ export default function Posts() {
 
 	return (
 		<div class={'bg-neutral-700'}>
-			<div class="flex flex-col items-center gap-6 w-full h-full pt-6">
+			<div class="flex flex-col items-center gap-6 w-full h-full pt-6" id='posts'>
 				{ 
 					posts.loading && (
 						<>
