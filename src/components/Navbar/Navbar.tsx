@@ -29,26 +29,35 @@ const Navbar = () => {
                 Logout
 							</Link>
 							<Link
-								class="bg-gray-800 text-white py-2 px-4 rounded-full"
+								class="bg-blue-500 text-white py-2 px-4 rounded-full"
 								href="/new-message"
 							>
                 Add new message
 							</Link>
 							<Link
-								class="bg-gray-800 text-white py-2 px-4 rounded-full ml-2"
+								class="bg-blue-500 text-white py-2 px-4 rounded-full ml-2"
 								href="/my-comments"
 							>
                 Check my comments
 							</Link>
 						</>
 					) : (
-						<Link
-							class="bg-gray-800 text-white py-2 px-4 rounded-full"
-							onClick={handleLogin}
-							href='/posts'
-						>
-              Login
-						</Link>
+						<>
+							<Link
+								class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2"
+								onClick={handleLogin}
+								href='/login'
+							>
+								Login
+							</Link>
+							<Link
+								class="bg-blue-500 text-white py-2 px-4 rounded-full mr-2"
+								onClick={handleLogin}
+								href='/register'
+							>
+								Register
+							</Link>
+						</>
 					)}
 				</div>
 			</div>
