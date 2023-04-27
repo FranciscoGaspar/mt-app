@@ -67,7 +67,7 @@ export default function Register() {
 							))}
 						</ul>
 					)}
-					<button  type='submit' class="bg-blue-500 text-white p-3 rounded-lg w-full">Login</button>
+					<button  type='submit' class="bg-blue-500 text-white p-3 rounded-full w-full">Login</button>
 				</form>
 			</div>
 		</div>
