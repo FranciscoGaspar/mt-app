@@ -8,7 +8,7 @@ export default function Register() {
 		return Object.entries(jsonData);
 	};
 
-	const [countries, {mutate}] = createResource(fetchData);
+	const [countries] = createResource(fetchData);
 	const [selectedCountry, setSelectedCountry] = createSignal('');
 	const [filteredCountries, setFilteredCountries] = createSignal([]);
 
