@@ -13,7 +13,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<nav class="bg-gray-100 py-4">
+		<nav class="bg-gray-100 py-4 sticky top-0">
 			<div class="container mx-auto flex justify-between item">
 				<Link class="text-lg font-bold text-gray-800" href="/">
           My App
