@@ -1,5 +1,7 @@
-import { createResource } from 'solid-js';
-import { createSignal } from 'solid-js';
+import { createResource, createSignal } from 'solid-js';
+import { useForm } from '../hooks/useForms';
+
+
 
 export default function Register() {
   const fetchData = async () => {
@@ -8,47 +10,53 @@ export default function Register() {
     return Object.entries(jsonData);
   };
 
-  const [countries] = createResource(fetchData);
-  const [selectedCountry, setSelectedCountry] = createSignal('');
-  const [filteredCountries, setFilteredCountries] = createSignal([]);
-  const [name, setName] = createSignal('');
-  const [email, setEmail] = createSignal('');
-  const [password, setPassword] = createSignal('');
+  const [ countries ] = createResource(fetchData);
+  const [ filteredCountries, setFilteredCountries ] = createSignal([]);
+  const { form, setForm, updateFormField, clearFields } = useForm({ name: '', email: '', password: '', country:''});
 
-  const handleCountryInput = (e) => {
+  const handleCountryInput = (event) => {
     const filtered = countries()?.filter((country: any) =>{
-      return country[1].toLowerCase().startsWith(e.target.value.toLowerCase());
-    }
-    );
+      return country[1].toLowerCase().startsWith(event.target.value.toLowerCase());
+    });
     setFilteredCountries(filtered);
-    setSelectedCountry(e.target.value);
+    updateFormField('country');
   };
 
-  const handleCountrySelect = (e) => {
-    setSelectedCountry(e.target.innerText);
+  const handleCountrySelect = (event) => {
     setFilteredCountries([]);
+    setForm({
+      ['country']: event.target.innerText
+    });
   };
 
   const handleReset = () => {
-    setSelectedCountry('');
     setFilteredCountries([]);
-    setName('');
-    setEmail('');
-    setPassword('');
+    clearFields(['name', 'email', 'password', 'country']);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const dataToSubmit = {
+      name: form.name,
+      email: form.email,
+      password: form.password,
+      country: form.country
+    };
+    console.log(dataToSubmit);
   };
     
   return (
     <div class="bg-gray-300 flex justify-center items-center h-screen">
       <div class="bg-white p-10 rounded-lg shadow-lg">
         <h1 class="text-center text-2xl font-bold mb-5">Register</h1>
-        <form action="">
-          <input type="text" placeholder="Name" class="w-full p-3 mb-5 border rounded-full" value={name()} onInput={e => setName(e.target.value)}/>
-          <input type="email" placeholder="Email" class="w-full p-3 mb-5 border rounded-full" value={email()} onInput={e => setEmail(e.target.value)}/>
-          <input type="password" placeholder="Password" class="w-full p-3 mb-5 border rounded-full" value={password()} onInput={e => setPassword(e.target.value)}/>
+        <form onSubmit={handleSubmit}>
+          <input name='name' value={form.name} onInput={updateFormField('name')} type="text" placeholder="Name" class="w-full p-3 mb-5 border rounded-full"/>
+          <input name='email' value={form.email} onInput={updateFormField('email')} type="email" placeholder="Email" class="w-full p-3 mb-5 border rounded-full"/>
+          <input name='password' value={form.password} onInput={updateFormField('password')} type="password" placeholder="Password" class="w-full p-3 mb-5 border rounded-full"/>
           <div class='flex'>
-            <input type='text' placeholder='Country' class="w-full p-3 mb-5 border rounded-full"
-              onInput={handleCountryInput} 
-              value={selectedCountry()}
+            <input name='country' type='text' placeholder='Country' class="w-full p-3 mb-5 border rounded-full"
+              onInput={handleCountryInput}
+              value={form.country}
             />
           </div>
           {filteredCountries().length > 0 && (
