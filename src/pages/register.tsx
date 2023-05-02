@@ -1,7 +1,7 @@
 import { createResource, createSignal } from 'solid-js';
 import { useForm } from '../hooks/useForms';
-
-
+import toast from 'solid-toast';
+import { Link, useNavigate } from '@solidjs/router';
 
 export default function Register() {
   const fetchData = async () => {
@@ -13,6 +13,7 @@ export default function Register() {
   const [ countries ] = createResource(fetchData);
   const [ filteredCountries, setFilteredCountries ] = createSignal([]);
   const { form, setForm, updateFormField, clearFields } = useForm({ name: '', email: '', password: '', country:''});
+  const navigate = useNavigate();
 
   const handleCountryInput = (event) => {
     const filtered = countries()?.filter((country: any) =>{
@@ -34,7 +35,7 @@ export default function Register() {
     clearFields(['name', 'email', 'password', 'country']);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const dataToSubmit = {
       name: form.name,
@@ -42,7 +43,21 @@ export default function Register() {
       password: form.password,
       country: form.country
     };
-    console.log(dataToSubmit);
+    const result = await fetch('http://localhost:3000/api/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataToSubmit)
+    });
+
+    const json = await result.json();
+    if(json._id) {
+      toast.success('User created successfully');
+      navigate('/', { replace: true });
+    } else {
+      toast.error('Error creating user');
+    }
   };
     
   return (
@@ -50,11 +65,11 @@ export default function Register() {
       <div class="bg-white p-10 rounded-lg shadow-lg">
         <h1 class="text-center text-2xl font-bold mb-5">Register</h1>
         <form onSubmit={handleSubmit}>
-          <input name='name' value={form.name} onInput={updateFormField('name')} type="text" placeholder="Name" class="w-full p-3 mb-5 border rounded-full"/>
-          <input name='email' value={form.email} onInput={updateFormField('email')} type="email" placeholder="Email" class="w-full p-3 mb-5 border rounded-full"/>
-          <input name='password' value={form.password} onInput={updateFormField('password')} type="password" placeholder="Password" class="w-full p-3 mb-5 border rounded-full"/>
+          <input required name='name' value={form.name} onInput={updateFormField('name')} type="text" placeholder="Name (required)" class="w-full p-3 mb-5 border rounded-full"/>
+          <input required name='email' value={form.email} onInput={updateFormField('email')} type="email" placeholder="Email (required)" class="w-full p-3 mb-5 border rounded-full"/>
+          <input required name='password' value={form.password} onInput={updateFormField('password')} type="password" placeholder="Password (required)" class="w-full p-3 mb-5 border rounded-full"/>
           <div class='flex'>
-            <input name='country' type='text' placeholder='Country' class="w-full p-3 mb-5 border rounded-full"
+            <input required name='country' type='text' placeholder='Country (required)' class="w-full p-3 mb-5 border rounded-full"
               onInput={handleCountryInput}
               value={form.country}
             />
@@ -82,9 +97,13 @@ export default function Register() {
           )}
           <div class='flex flex-row-reverse'>
             <button type='button' class='bg-white border rounded-full w-20 text-center text-red-500 ml-2' onClick={handleReset}>Reset</button>
-            <button type='submit' class="bg-blue-500 text-white p-3 rounded-full w-full">Login</button>
+            <button type='submit' class="bg-blue-500 text-white p-3 rounded-full w-full">Register</button>
+
           </div>
         </form>
+        <div class='flex items-center justify-center flex-row-reverse mt-10'>
+          <Link href="/login" class="text-blue-500">Login instead? Click here!</Link>
+        </div>
       </div>
     </div>
   );
